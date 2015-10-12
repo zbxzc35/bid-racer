@@ -1,4 +1,4 @@
-# rtbkit-install
+# bid-racer
 
 This repo contains all the shell scripts, ansible playbooks and vagrant files required to build the DSP system using RTBKit on Rackspace cloud.
 
@@ -6,4 +6,6 @@ If you want to build your own DSP system, all you need to do is clone this repo 
 
 Requirements:
 
-You need to install vagrant 1.7 version or above for the vagrant file to work.
+User account on rackspace.
+
+Vagrant 1.7 version or above to run the vagrant file.
