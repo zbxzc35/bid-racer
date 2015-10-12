@@ -1,0 +1,25 @@
+$script = <<SCRIPT
+set -e
+set -x
+rm --force ansible-master-bootstrap.sh
+rm --force Vansible-master-bootstrap.log
+wget https://s3-us-west-2.amazonaws.com/rtbkit-files/shell-scripts/ansible_master_bootstrap.sh
+chmod +x ansible_master_bootstrap.sh
+./ansible_master_bootstrap.sh 2>&1 | tee ansible_master_bootstrap.log
+exit
+SCRIPT
+
+Vagrant.configure(2) do |config|
+  config.ssh.private_key_path = "rackspace_rsa"
+  config.vm.provider :rackspace do |rs|
+    rs.username = "{your rackspace username}"
+    rs.api_key  = "{your rackspace api key}"
+    rs.admin_password = "Samsungs4"
+    rs.flavor   = /1 GB Performance/
+    rs.image    = /Ubuntu 12.04/
+    rs.rackspace_region = :dfw
+    rs.server_name =  "ansible-master"
+    rs.public_key_path  = "rackspace_rsa.pub"
+  end
+  config.vm.provision :shell, :inline => $script
+end
